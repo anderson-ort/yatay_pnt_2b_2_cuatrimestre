@@ -1,0 +1,178 @@
+:root {
+--fondo: #F2EFE6;
+--verde-profundo: #1F3D2B;
+--salvia: #7C8F6E;
+--dorado: #A9813F;
+--texto: #211F1A;
+--texto-suave: #55584E;
+--borde: #D8D2C1;
+--card-bg: #FBFAF6;
+}
+
+* { box-sizing: border-box; }
+
+body {
+margin: 0;
+background: var(--fondo);
+color: var(--texto);
+font-family: 'Georgia', 'Iowan Old Style', serif;
+}
+
+header {
+padding: 64px 24px 40px;
+max-width: 960px;
+margin: 0 auto;
+border-bottom: 1px solid var(--borde);
+}
+
+header .marca {
+font-family: 'Helvetica Neue', Arial, sans-serif;
+font-size: 13px;
+letter-spacing: 0.04em;
+color: var(--salvia);
+margin: 0 0 12px;
+}
+
+header h1 {
+font-size: clamp(32px, 5vw, 48px);
+line-height: 1.15;
+margin: 0 0 14px;
+max-width: 14ch;
+font-weight: 500;
+}
+
+header p {
+font-family: 'Helvetica Neue', Arial, sans-serif;
+color: var(--texto-suave);
+font-size: 16px;
+max-width: 52ch;
+line-height: 1.6;
+margin: 0;
+}
+
+main {
+max-width: 960px;
+margin: 0 auto;
+padding: 40px 24px 100px;
+}
+
+.filtros {
+display: flex;
+gap: 8px;
+flex-wrap: wrap;
+margin-bottom: 32px;
+font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+.filtros button {
+background: transparent;
+border: 1px solid var(--borde);
+color: var(--texto-suave);
+padding: 8px 16px;
+border-radius: 100px;
+font-size: 13px;
+cursor: pointer;
+transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.filtros button:hover {
+border-color: var(--salvia);
+color: var(--verde-profundo);
+}
+
+.filtros button.activo {
+background: var(--verde-profundo);
+border-color: var(--verde-profundo);
+color: var(--fondo);
+}
+
+.estado {
+font-family: 'Helvetica Neue', Arial, sans-serif;
+color: var(--texto-suave);
+font-size: 14px;
+padding: 40px 0;
+text-align: center;
+}
+
+.grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+gap: 28px 24px;
+}
+
+.producto {
+background: var(--card-bg);
+border: 1px solid var(--borde);
+}
+
+.producto .imagen {
+aspect-ratio: 1 / 1;
+width: 100%;
+overflow: hidden;
+background: var(--fondo);
+}
+
+.producto .imagen img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+display: block;
+}
+
+.producto .info {
+padding: 16px 18px 20px;
+}
+
+.producto .categoria {
+font-family: 'Helvetica Neue', Arial, sans-serif;
+font-size: 11px;
+color: var(--salvia);
+letter-spacing: 0.03em;
+margin: 0 0 6px;
+}
+
+.producto h2 {
+font-size: 18px;
+line-height: 1.3;
+margin: 0 0 8px;
+font-weight: 500;
+}
+
+.producto .descripcion {
+font-family: 'Helvetica Neue', Arial, sans-serif;
+font-size: 13px;
+color: var(--texto-suave);
+line-height: 1.5;
+margin: 0 0 14px;
+}
+
+.producto .pie {
+display: flex;
+align-items: baseline;
+justify-content: space-between;
+font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+.producto .precio {
+font-family: 'Georgia', serif;
+font-size: 19px;
+color: var(--verde-profundo);
+}
+
+.producto .stock {
+font-size: 12px;
+color: var(--texto-suave);
+}
+
+.producto .stock.agotado {
+color: #A64B3B;
+}
+
+footer {
+max-width: 960px;
+margin: 0 auto;
+padding: 0 24px 60px;
+font-family: 'Helvetica Neue', Arial, sans-serif;
+font-size: 12px;
+color: var(--texto-suave);
+}
