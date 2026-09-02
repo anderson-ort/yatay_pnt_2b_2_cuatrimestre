@@ -1,0 +1,529 @@
+/* ==============================
+   RESET Y VARIABLES
+================================ */
+
+:root {
+    --bg: #0d0d0f;
+    --bg-secondary: #151518;
+    --surface: #18181c;
+    --surface-hover: #202025;
+
+    --border: rgba(255, 255, 255, 0.09);
+    --border-hover: rgba(255, 255, 255, 0.18);
+
+    --text: #f5f5f7;
+    --text-secondary: #a1a1aa;
+    --text-muted: #71717a;
+
+    --accent: #8b5cf6;
+    --accent-hover: #9f75ff;
+
+    --success: #4ade80;
+    --danger: #f87171;
+
+    --radius: 14px;
+    --max-width: 1200px;
+}
+
+
+/* ==============================
+   RESET
+================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    min-height: 100vh;
+
+    font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    background:
+        radial-gradient(circle at top center,
+            rgba(139, 92, 246, 0.12),
+            transparent 35%),
+        var(--bg);
+
+    color: var(--text);
+
+    display: flex;
+    flex-direction: column;
+
+    line-height: 1.5;
+}
+
+
+/* ==============================
+   HEADER
+================================ */
+
+header {
+    width: min(100% - 40px, var(--max-width));
+    margin: 0 auto;
+
+    padding: 100px 0 70px;
+
+    text-align: center;
+}
+
+
+.marca {
+    display: inline-flex;
+
+    padding: 7px 12px;
+
+    margin-bottom: 20px;
+
+    border: 1px solid var(--border);
+    border-radius: 999px;
+
+    background: rgba(255, 255, 255, 0.03);
+
+    color: var(--text-secondary);
+
+    font-size: 0.85rem;
+    font-weight: 500;
+
+    letter-spacing: 0.03em;
+}
+
+
+header h1 {
+    max-width: 800px;
+
+    margin: 0 auto 20px;
+
+    font-size: clamp(2.3rem, 6vw, 4.5rem);
+
+    line-height: 1.05;
+
+    letter-spacing: -0.05em;
+
+    font-weight: 700;
+
+    background: linear-gradient(180deg,
+            #ffffff 0%,
+            #a1a1aa 100%);
+
+    background-clip: text;
+    -webkit-background-clip: text;
+
+    color: transparent;
+}
+
+
+header>p:last-child {
+    max-width: 700px;
+
+    margin: 0 auto;
+
+    color: var(--text-secondary);
+
+    font-size: 1.05rem;
+}
+
+
+/* ==============================
+   MAIN
+================================ */
+
+main {
+    width: min(100% - 40px, var(--max-width));
+
+    margin: 0 auto;
+
+    flex: 1;
+
+    padding-bottom: 100px;
+}
+
+
+/* ==============================
+   FILTROS
+================================ */
+
+.filtros {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    justify-content: center;
+
+    padding-bottom: 45px;
+
+    border-bottom: 1px solid var(--border);
+
+    margin-bottom: 40px;
+}
+
+
+.filtros button {
+    border: 1px solid var(--border);
+
+    background: transparent;
+
+    color: var(--text-secondary);
+
+    padding: 9px 15px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font: inherit;
+
+    font-size: 0.9rem;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.filtros button:hover {
+    background: var(--surface);
+
+    border-color: var(--border-hover);
+
+    color: var(--text);
+
+    transform: translateY(-1px);
+}
+
+
+.filtros button.activo {
+    background: var(--text);
+
+    border-color: var(--text);
+
+    color: #111;
+}
+
+
+/* ==============================
+   GRID DE PRODUCTOS
+================================ */
+
+.grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit,
+            minmax(260px, 1fr));
+
+    gap: 16px;
+}
+
+
+/* ==============================
+   CARD PRODUCTO
+================================ */
+
+.producto {
+    position: relative;
+
+    display: flex;
+
+    flex-direction: column;
+
+    overflow: hidden;
+
+    background: rgba(255, 255, 255, 0.025);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    min-height: 100%;
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.producto:hover {
+    transform: translateY(-5px);
+
+    background: var(--surface-hover);
+
+    border-color: var(--border-hover);
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+
+/* ==============================
+   IMAGEN
+================================ */
+
+.imagen {
+    position: relative;
+
+    aspect-ratio: 1 / 0.8;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(135deg,
+            #202025,
+            #121214);
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.imagen img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    transition:
+        transform 0.5s ease,
+        opacity 0.3s ease;
+}
+
+
+.producto:hover .imagen img {
+    transform: scale(1.04);
+}
+
+
+/* ==============================
+   INFORMACIÓN
+================================ */
+
+.info {
+    display: flex;
+
+    flex-direction: column;
+
+    flex: 1;
+
+    padding: 20px;
+}
+
+
+.categoria {
+    width: fit-content;
+
+    margin-bottom: 12px;
+
+    padding: 4px 8px;
+
+    border-radius: 5px;
+
+    background: rgba(139, 92, 246, 0.1);
+
+    border: 1px solid rgba(139, 92, 246, 0.15);
+
+    color: #bda4ff;
+
+    font-size: 0.72rem;
+
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.06em;
+}
+
+
+.info h2 {
+    margin-bottom: 10px;
+
+    font-size: 1.1rem;
+
+    font-weight: 600;
+
+    letter-spacing: -0.02em;
+
+    color: var(--text);
+}
+
+
+.descripcion {
+    flex: 1;
+
+    color: var(--text-secondary);
+
+    font-size: 0.9rem;
+
+    line-height: 1.6;
+
+    margin-bottom: 25px;
+}
+
+
+/* ==============================
+   PIE DEL PRODUCTO
+================================ */
+
+.pie {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 12px;
+
+    padding-top: 16px;
+
+    border-top: 1px solid var(--border);
+}
+
+
+.precio {
+    color: var(--text);
+
+    font-size: 1.05rem;
+
+    font-weight: 600;
+
+    letter-spacing: -0.02em;
+}
+
+
+.stock {
+    color: var(--success);
+
+    font-size: 0.8rem;
+
+    font-weight: 500;
+
+    white-space: nowrap;
+}
+
+
+.stock.agotado {
+    color: var(--danger);
+}
+
+
+/* ==============================
+   ESTADOS
+================================ */
+
+.estado {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 250px;
+
+    padding: 30px;
+
+    border: 1px dashed var(--border);
+
+    border-radius: var(--radius);
+
+    color: var(--text-secondary);
+
+    text-align: center;
+}
+
+
+/* ==============================
+   FOOTER
+================================ */
+
+footer {
+    width: min(100% - 40px, var(--max-width));
+
+    margin: 0 auto;
+
+    padding: 30px 0;
+
+    border-top: 1px solid var(--border);
+
+    color: var(--text-muted);
+
+    text-align: center;
+
+    font-size: 0.85rem;
+}
+
+
+/* ==============================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 700px) {
+
+    header {
+        padding-top: 70px;
+        padding-bottom: 50px;
+    }
+
+
+    main,
+    header,
+    footer {
+        width: min(100% - 28px, var(--max-width));
+    }
+
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .filtros {
+        justify-content: flex-start;
+
+        overflow-x: auto;
+
+        flex-wrap: nowrap;
+
+        padding-bottom: 25px;
+
+        scrollbar-width: none;
+    }
+
+
+    .filtros::-webkit-scrollbar {
+        display: none;
+    }
+
+
+    .filtros button {
+        white-space: nowrap;
+    }
+}
+
+
+@media (min-width: 701px) {
+
+    .producto {
+        min-width: 0;
+    }
+}
