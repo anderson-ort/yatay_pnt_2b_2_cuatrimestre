@@ -215,37 +215,7 @@ Las directivas son atributos especiales con el prefijo `v-` que aplican comporta
 
 1. **Instalar Vue CLI de forma global:**
 ```bash
-npm install -g @vue/cli
-
+npm create vue@latest
 ```
 
-
-2. **Crear un nuevo proyecto:**
-```bash
-vue create mi-proyecto-vuecli
-
-```
-
-
-3. **Selección de características durante el asistente:**
-Al ejecutar el comando, la terminal solicitará elegir un preset:
-```text
-Vue CLI v5.0.8
-? Please pick a preset: 
-  Default ([Vue 3] babel, eslint) 
-  Default ([Vue 2] babel, eslint) 
-> Manually select features
-
-```
-
-
-*Selecciona **`Manually select features`** para personalizar e incluir herramientas como Router, Pinia, Babel o Linter.*
-4. **Ingresar a la carpeta e iniciar el servidor de desarrollo:**
-```bash
-cd mi-proyecto-vuecli
-npm run serve
-
-```
-
-
-A diferencia de Vite (`npm run dev`), Vue CLI utiliza el comando `npm run serve` para levantar el servidor con Webpack.
+### 10. Proximos Pasos [Vite](https://vite.dev/)! 
