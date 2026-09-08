@@ -20,22 +20,33 @@ VITE_SUPABASE_ANON_KEY=tu-anon-key
 ```vue
 <script>
 export default {
+  // Estado reactivo del componente
   data() {
     return {
-      productos: [],
-      categoriaActiva: 'todos',
-      cargando: true,
-      error: null,
-      imagenFallback: 'https://placehold.co/400x400/F2EFE6/7C8F6E?text=Sin+imagen'
+      productos: [],           // Lista completa de productos traída de Supabase
+      categoriaActiva: 'todos', // Filtro seleccionado actualmente
+      cargando: true,           // Controla el spinner/estado de carga
+      error: null,              // Mensaje de error si falla el fetch
+      imagenFallback: 'https://placehold.co/400x400/F2EFE6/7C8F6E?text=Sin+imagen' // Imagen por defecto
     }
   },
 
   computed: {
+    /**
+     * Extrae las categorías únicas presentes en los productos.
+     * Siempre incluye 'todos' como primera opción del filtro.
+     * @returns {string[]}
+     */
     categorias() {
       const lista = this.productos.map(p => p.categoria).filter(Boolean)
       return ['todos', ...new Set(lista)]
     },
 
+    /**
+     * Devuelve los productos filtrados según la categoría activa.
+     * Si la categoría es 'todos', no aplica ningún filtro.
+     * @returns {Array}
+     */
     productosFiltrados() {
       if (this.categoriaActiva === 'todos') return this.productos
       return this.productos.filter(p => p.categoria === this.categoriaActiva)
@@ -43,43 +54,81 @@ export default {
   },
 
   methods: {
+    /**
+     * Llama a la API REST de Supabase para traer los productos.
+     * Maneja los tres estados: carga, éxito y error.
+     */
     async cargarProductos() {
       this.cargando = true
       this.error = null
+
       try {
         const url = `${import.meta.env.VITE_SUPABASE_URL}/rest/v1/productos?select=*&order=creado_en.desc`
+
         const respuesta = await fetch(url, {
           headers: {
             apikey: import.meta.env.VITE_SUPABASE_ANON_KEY,
             Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
           }
         })
-        if (!respuesta.ok) throw new Error(`Error ${respuesta.status}`)
+
+        if (!respuesta.ok) {
+          throw new Error(`Error ${respuesta.status}`)
+        }
+
         this.productos = await respuesta.json()
       } catch (err) {
+        // Se guarda el mensaje para mostrarlo en el template
         this.error = err.message
       } finally {
         this.cargando = false
       }
     },
 
+    /**
+     * Formatea un número como precio en pesos argentinos.
+     * @param {number} precio
+     * @returns {string} Precio formateado, ej: "$1.500,00"
+     */
     formatearPrecio(precio) {
-      return Number(precio).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })
+      return Number(precio).toLocaleString('es-AR', {
+        style: 'currency',
+        currency: 'ARS'
+      })
     },
 
+    /**
+     * Determina si un producto está sin stock.
+     * @param {number} stock
+     * @returns {boolean}
+     */
     esAgotado(stock) {
       return !stock || stock <= 0
     },
 
+    /**
+     * Devuelve la URL de imagen del producto, o la imagen de fallback si no existe.
+     * @param {string} url
+     * @returns {string}
+     */
     obtenerImagen(url) {
       return url || this.imagenFallback
     },
 
+    /**
+     * Handler del evento @error de la etiqueta <img>.
+     * Reemplaza la imagen rota por la de fallback.
+     * @param {Event} event
+     */
     manejarErrorImagen(event) {
       event.target.src = this.imagenFallback
     }
   },
 
+  /**
+   * Hook de ciclo de vida: se ejecuta cuando el componente ya está montado en el DOM.
+   * Dispara la carga inicial de productos.
+   */
   mounted() {
     this.cargarProductos()
   }
@@ -87,6 +136,7 @@ export default {
 </script>
 
 <template>
+  <!-- Encabezado estático de la página -->
   <header>
     <p class="marca">Catálogo interno</p>
     <h1>Suplementos naturales, en su forma más simple.</h1>
@@ -94,6 +144,7 @@ export default {
   </header>
 
   <main>
+    <!-- Barra de filtros: solo se muestra si ya hay productos cargados -->
     <div class="filtros" v-if="productos.length > 0">
       <button
         v-for="cat in categorias"
@@ -104,27 +155,38 @@ export default {
       </button>
     </div>
 
-    <div v-if="cargando"><p class="estado">Cargando productos...</p></div>
+    <!-- Estado: cargando datos -->
+    <div v-if="cargando">
+      <p class="estado">Cargando productos...</p>
+    </div>
 
+    <!-- Estado: error en el fetch -->
     <div v-else-if="error">
       <p class="estado">No se pudo cargar el catálogo. Revisa la URL y la anon key configuradas. ({{ error }})</p>
     </div>
 
+    <!-- Estado: sin resultados (ya sea porque no hay productos o el filtro no matchea nada) -->
     <div v-else-if="productosFiltrados.length === 0">
       <p class="estado">
         {{ productos.length === 0 ? 'No hay productos cargados todavía.' : 'No hay productos en esta categoría.' }}
       </p>
     </div>
 
+    <!-- Estado: grid de productos filtrados -->
     <div v-else class="grid">
       <article v-for="producto in productosFiltrados" :key="producto.id || producto.nombre" class="producto">
+        <!-- Imagen del producto, con fallback en caso de error de carga -->
         <div class="imagen">
           <img :src="obtenerImagen(producto.imagen)" :alt="producto.nombre" loading="lazy" @error="manejarErrorImagen">
         </div>
+
+        <!-- Información textual del producto -->
         <div class="info">
           <p class="categoria">{{ producto.categoria || 'general' }}</p>
           <h2>{{ producto.nombre }}</h2>
           <p class="descripcion">{{ producto.descripcion || '' }}</p>
+
+          <!-- Precio y disponibilidad de stock -->
           <div class="pie">
             <span class="precio">{{ formatearPrecio(producto.precio) }}</span>
             <span class="stock" :class="{ agotado: esAgotado(producto.stock) }">

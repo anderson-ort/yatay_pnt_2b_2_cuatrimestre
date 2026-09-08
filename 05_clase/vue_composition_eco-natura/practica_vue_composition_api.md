@@ -1,13 +1,5 @@
-### Estructura del proyecto
-
-```
-mi-catalogo/
-├── .env
-├── src/
-│   ├── App.vue
-│   ├── main.js
-│   └── style.css
-```
+## Propuesta de proyecto
+Poder replicar el mismo frontend en la version de composition en vue
 
 ### `.env`
 
@@ -141,21 +133,3 @@ onMounted(cargarProductos)
 </template>
 ```
 
-### Setup
-
-```bash
-npm create vue@latest mi-catalogo
-cd mi-catalogo
-npm install
-npm run dev
-```
-
-### Diferencias clave vs. la versión CDN
-
-| Aspecto | Vue por CDN (Options API) | Vue CLI/Vite (Composition API) |
-| --- | --- | --- |
-| Bundling | Ninguno, un script global | Vite compila y optimiza (tree-shaking, HMR) |
-| Variables de entorno | Hardcodeadas en `config.js` (riesgo si se sube al repo) | `.env` + `import.meta.env`, excluible de git |
-| Organización | `data`/`computed`/`methods` | `ref`/`computed`/funciones sueltas en `<script setup>` |
-| Componentes | Un solo archivo monolítico | Archivos `.vue` separables por componente |
-| Build para producción | No aplica | `npm run build` genera `dist/` optimizado |
