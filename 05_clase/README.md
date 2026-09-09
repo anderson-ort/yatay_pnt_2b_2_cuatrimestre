@@ -218,4 +218,19 @@ Las directivas son atributos especiales con el prefijo `v-` que aplican comporta
 npm create vue@latest
 ```
 
+
+### Tarea para la siguiente clase:
+
+**Consigna: Lista de Compras Interactiva**
+
+Crea una app de vue con los siguientes requerimientos:
+
+1. **Agregar productos:** Un campo de texto donde el usuario escriba el nombre de un producto (ej. "Manzanas", "Leche") y se agregue a la lista de compras al presionar la tecla Enter.
+2. **Mostrar la lista:** Un contenedor que renderice todos los productos que se van ingresando.
+3. **Marcar como "En el carrito":** Al hacer clic sobre un producto de la lista, su aspecto visual debe cambiar (por ejemplo, el fondo se pone de color verde o el texto se tacha) para indicar que ya lo agarraste de la góndola. Si haces clic de nuevo, vuelve a estar pendiente.
+4. **Control de cantidades:** Muestra en pantalla dos contadores que se calculen automáticamente:
+* Cuántos productos ya están en el carrito.
+* Cuántos productos faltan por buscar.
+
+
 ### 10. Proximos Pasos [Vite](https://vite.dev/)! 
