@@ -1,7 +1,3 @@
-Se corrigieron los saltos de línea internos que rompían la tabla de la Sección 2, se eliminaron los artefactos de texto (``) en los bloques de código y se alineó la Sección 9 para reflejar el estándar actual (`create-vue` con Vite).
-
----
-
 ### 1. Historia, Funcionamiento y Utilidad Actual de Vue.js
 
 * **Historia:** Vue.js fue creado en 2014 por **Evan You**. Nació de la idea de extraer lo que más le gustaba de AngularJS para crear un framework mucho más ligero, flexible y sin las complejidades innecesarias del ecosistema de la época.
