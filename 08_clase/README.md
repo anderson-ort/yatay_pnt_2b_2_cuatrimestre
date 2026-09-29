@@ -1,4 +1,4 @@
-# `.env` y consumo de APIs en Vue 3 + Vite
+# Uso de secretos `(.env)` y consumo de APIs en Vue 3 + Vite
 
 En una aplicación Vue 3 creada con Vite, las variables de entorno se leen mediante `import.meta.env`. Para que una variable esté disponible en el código del navegador debe comenzar con `VITE_`; esto significa también que su valor queda expuesto en el bundle final, por lo que nunca debes guardar allí secretos reales. [vite](https://vite.dev/guide/env-and-mode)
 
