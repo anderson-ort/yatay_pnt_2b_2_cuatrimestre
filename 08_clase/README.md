@@ -80,11 +80,46 @@ Toda variable con prefijo `VITE_` puede terminar visible en el navegador. La cla
 ## [Que es un composable?](./composables.md)
 
 ## 2. Consumo con `fetch`
-Una forma sencilla es crear un composable llamado `useProductos.js`:
+
+`fetch` viene incluido en el navegador, así que no requiere dependencias. La separación recomendada es la misma que usaremos con Axios: el **service** se comunica con la API, el **composable** maneja el estado reactivo (`productos`, `loading`, `error`) y el **componente** solo pinta la interfaz.
+
+### 2.1 Service: `src/services/productosService.js`
+
+```js
+// src/services/productosService.js
+export async function listarProductos() {
+  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+  const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    throw new Error('Faltan VITE_SUPABASE_URL o VITE_SUPABASE_ANON_KEY')
+  }
+
+  const url = `${supabaseUrl}/rest/v1/productos?select=*&order=creado_en.desc`
+
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      apikey: supabaseAnonKey,
+      Authorization: `Bearer ${supabaseAnonKey}`,
+      'Content-Type': 'application/json'
+    }
+  })
+
+  if (!response.ok) {
+    throw new Error(`Error HTTP: ${response.status}`)
+  }
+
+  return response.json()
+}
+```
+
+### 2.2 Composable: `src/composables/useProductos.js`
 
 ```js
 // src/composables/useProductos.js
 import { ref } from 'vue'
+import { listarProductos } from '@/services/productosService'
 
 export function useProductos() {
   const productos = ref([])
@@ -95,34 +130,8 @@ export function useProductos() {
     loading.value = true
     error.value = null
 
-    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-    const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
-
-    if (!supabaseUrl || !supabaseAnonKey) {
-      error.value = new Error(
-        'Faltan VITE_SUPABASE_URL o VITE_SUPABASE_ANON_KEY'
-      )
-      loading.value = false
-      return
-    }
-
-    const url = `${supabaseUrl}/rest/v1/productos?select=*&order=creado_en.desc`
-
     try {
-      const response = await fetch(url, {
-        method: 'GET',
-        headers: {
-          apikey: supabaseAnonKey,
-          Authorization: `Bearer ${supabaseAnonKey}`,
-          'Content-Type': 'application/json'
-        }
-      })
-
-      if (!response.ok) {
-        throw new Error(`Error HTTP: ${response.status}`)
-      }
-
-      productos.value = await response.json()
+      productos.value = await listarProductos()
     } catch (err) {
       error.value = err
     } finally {
@@ -139,7 +148,7 @@ export function useProductos() {
 }
 ```
 
-Puedes usarlo desde un componente:
+### 2.3 Uso desde un componente
 
 ```vue
 <script setup>
@@ -202,13 +211,15 @@ if (!response.ok) {
 
 ## 3. Consumo con Axios
 
-Primero instala Axios:
+Axios es una dependencia externa, pero a cambio nos da transformación automática de JSON, rechazo automático de errores HTTP, `baseURL` e interceptores. La estructura es idéntica a la del stack anterior: **service → composable → componente**.
+
+### 3.1 Instalación
 
 ```bash
 npm install axios
 ```
 
-Después crea una instancia reutilizable:
+### 3.2 Instancia reutilizable: `src/services/api.js`
 
 ```js
 // src/services/api.js
@@ -226,7 +237,7 @@ const api = axios.create({
 export default api
 ```
 
-Luego crea el servicio de productos:
+### 3.3 Service: `src/services/productosService.js`
 
 ```js
 // src/services/productosService.js
@@ -244,7 +255,7 @@ export async function listarProductos() {
 }
 ```
 
-Y úsalo desde un componente o composable:
+### 3.4 Composable: `src/composables/useProductos.js`
 
 ```js
 // src/composables/useProductos.js
@@ -280,6 +291,47 @@ export function useProductos() {
   }
 }
 ```
+
+### 3.5 Uso desde un componente
+
+El componente es exactamente el mismo que en la versión con `fetch`, porque solo cambió la implementación del service:
+
+```vue
+<script setup>
+import { onMounted } from 'vue'
+import { useProductos } from '@/composables/useProductos'
+
+const {
+  productos,
+  loading,
+  error,
+  obtenerProductos
+} = useProductos()
+
+onMounted(() => {
+  obtenerProductos()
+})
+</script>
+
+<template>
+  <section>
+    <p v-if="loading">Cargando productos...</p>
+
+    <p v-else-if="error">
+      No se pudieron cargar los productos:
+      {{ error.message }}
+    </p>
+
+    <ul v-else>
+      <li v-for="producto in productos" :key="producto.id">
+        {{ producto.nombre }}
+      </li>
+    </ul>
+  </section>
+</template>
+```
+
+> **Nota sobre nombres:** en el proyecto EcoNatura `src/services/api.js` hoy es la capa de datos (el `fetchProducts` sobre el mock). Al migrar a una API real, ese archivo se reemplaza por el `productosService.js` del stack elegido. La instancia de Axios también se llama `api.js` en este ejemplo, así que elegí un stack u otro para evitar el choque de nombres.
 
 ### Ventajas de Axios
 
@@ -317,51 +369,76 @@ Para este proyecto educativo, te recomiendo empezar con `fetch`. Te permitirá e
 
 ## 5. Ejemplo con filtros y paginación
 
-Tu URL actual:
+Los filtros se agregan dentro del **service**, no en el composable ni en el componente. Así el composable sigue igual y solo cambia la consulta.
+
+Con `fetch`, la forma más segura de armar la query es `URLSearchParams`:
 
 ```js
-const url = `${import.meta.env.VITE_SUPABASE_URL}/rest/v1/productos?select=*&order=creado_en.desc`
-```
+// src/services/productosService.js
+export async function listarProductos({ limit = 10, offset = 0 } = {}) {
+  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+  const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
-Con `fetch`, puedes agregar parámetros de forma más segura usando `URLSearchParams`:
-
-```js
-const params = new URLSearchParams({
-  select: '*',
-  order: 'creado_en.desc',
-  limit: '10',
-  offset: '0'
-})
-
-const url = `${import.meta.env.VITE_SUPABASE_URL}/rest/v1/productos?${params}`
-
-const response = await fetch(url, {
-  headers: {
-    apikey: import.meta.env.VITE_SUPABASE_ANON_KEY,
-    Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
-  }
-})
-
-if (!response.ok) {
-  throw new Error(`Error HTTP: ${response.status}`)
-}
-
-const productos = await response.json()
-```
-
-Con Axios, la misma petición queda más declarativa:
-
-```js
-const response = await api.get('/productos', {
-  params: {
+  const params = new URLSearchParams({
     select: '*',
     order: 'creado_en.desc',
-    limit: 10,
-    offset: 0
-  }
-})
+    limit: String(limit),
+    offset: String(offset)
+  })
 
-const productos = response.data
+  const url = `${supabaseUrl}/rest/v1/productos?${params}`
+
+  const response = await fetch(url, {
+    headers: {
+      apikey: supabaseAnonKey,
+      Authorization: `Bearer ${supabaseAnonKey}`
+    }
+  })
+
+  if (!response.ok) {
+    throw new Error(`Error HTTP: ${response.status}`)
+  }
+
+  return response.json()
+}
+```
+
+Con Axios, la misma consulta queda más declarativa:
+
+```js
+// src/services/productosService.js
+import api from './api'
+
+export async function listarProductos({ limit = 10, offset = 0 } = {}) {
+  const response = await api.get('/productos', {
+    params: {
+      select: '*',
+      order: 'creado_en.desc',
+      limit,
+      offset
+    }
+  })
+
+  return response.data
+}
+```
+
+Y en el composable solo pasás los parámetros:
+
+```js
+// src/composables/useProductos.js (fragmento)
+async function obtenerProductos(filtros) {
+  loading.value = true
+  error.value = null
+
+  try {
+    productos.value = await listarProductos(filtros)
+  } catch (err) {
+    error.value = err
+  } finally {
+    loading.value = false
+  }
+}
 ```
 
 Como siguiente organización del proyecto, una estructura razonable sería:
@@ -372,8 +449,8 @@ src/
 ├── composables/
 │   └── useProductos.js
 ├── services/
-│   ├── api.js
-│   └── productosService.js
+│   ├── api.js              # solo en el stack Axios (instancia)
+│   └── productosService.js # el service del stack elegido
 └── views/
 ```
 

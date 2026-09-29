@@ -6,7 +6,7 @@ Un composable es una función reutilizable que contiene lógica de Vue. Por ejem
 
 Crea el archivo:
 
-```text
+```bash
 src/composables/useContador.js
 ```
 
