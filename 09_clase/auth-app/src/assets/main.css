@@ -1,0 +1,60 @@
+:root {
+  --borde: #d9dde3;
+  --fondo: #f6f7f9;
+  --primario: #2563eb;
+  --peligro: #dc2626;
+  --texto: #1f2937;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background: var(--fondo);
+  color: var(--texto);
+}
+
+.barra {
+  display: flex; align-items: center; gap: 1.5rem;
+  padding: .75rem 1.5rem; background: #fff; border-bottom: 1px solid var(--borde);
+}
+.barra nav { display: flex; gap: 1rem; flex: 1; }
+.sesion { display: flex; align-items: center; gap: .75rem; font-size: .9rem; }
+
+.contenedor { max-width: 960px; margin: 1.5rem auto; padding: 0 1rem; }
+
+.tarjeta {
+  background: #fff; border: 1px solid var(--borde); border-radius: 10px;
+  padding: 1rem; margin-bottom: 1rem;
+}
+.angosta { max-width: 420px; margin-inline: auto; }
+
+.grilla { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+.grilla .tarjeta { margin: 0; }
+.numero { font-size: 1.8rem; font-weight: 700; margin: .25rem 0 0; }
+
+.encabezado { display: flex; justify-content: space-between; align-items: center; }
+.fila { display: flex; gap: .5rem; flex-wrap: wrap; align-items: flex-end; }
+.fila > label { flex: 1; }
+
+.tabla { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--borde); }
+.tabla th, .tabla td { padding: .6rem; text-align: left; border-bottom: 1px solid var(--borde); }
+
+label { display: block; margin-bottom: .75rem; font-size: .9rem; }
+label.check { display: flex; gap: .5rem; align-items: center; }
+input, select { padding: .5rem; border: 1px solid var(--borde); border-radius: 6px; font: inherit; }
+label input:not([type='checkbox']) { display: block; width: 100%; margin-top: .25rem; }
+
+button {
+  padding: .5rem 1rem; border: 0; border-radius: 6px; cursor: pointer;
+  background: var(--primario); color: #fff; font: inherit;
+}
+button.secundario { background: #e5e7eb; color: var(--texto); }
+button.peligro { background: var(--peligro); }
+button:disabled { opacity: .5; cursor: not-allowed; }
+
+.error { color: var(--peligro); }
+.alerta { color: var(--peligro); font-weight: 600; }
+.chico { font-size: .85rem; color: #6b7280; }
+.etiqueta { display: inline-block; background: #e0e7ff; padding: .1rem .5rem; border-radius: 99px; font-size: .75rem; margin-left: .25rem; }
