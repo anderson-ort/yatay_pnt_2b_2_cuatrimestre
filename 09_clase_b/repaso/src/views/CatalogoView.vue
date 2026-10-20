@@ -1,7 +1,7 @@
 <script setup>
 import useFetchProducts from '../composables/useFetchProducts';
 
-const { data, loading, error } = useFetchProducts()
+const { data, loading, error, retrieveProducts } = useFetchProducts()
 
 const handleRetriever = async () => {
   console.log("recargando data");

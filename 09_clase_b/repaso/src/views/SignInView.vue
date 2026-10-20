@@ -19,12 +19,12 @@ const formValues = reactive({
 
 const loginUser = async () => {
   try {
-    const user = await login(formValues.email, formValues.password)
+    const {user, accessToken, refreshToken } = await login(formValues.email, formValues.password)
+    
+    auth.token = accessToken
+
     const role = await getRoleByUserId(user.id)
-    // Handle successful login (e.g., redirect to another page)
-    loading.value = false
-    console.log({ user, role })
-    auth.setUser(user, role) // Set the user in the auth store
+    auth.setUser(user, accessToken , role) // Set the user in the auth store
     // ??? QUE PASA cuando se hace un login??????!
     router.push({ name: 'Catalogo' }) // Redirige a la página de inicio después del login exitoso
   } catch (err) {

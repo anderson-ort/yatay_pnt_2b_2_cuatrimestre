@@ -13,8 +13,6 @@ const formValues = reactive({
 const registerUser = async () => {
   try {
     await register(formValues.email, formValues.password)
-    // Handle successful registration (e.g., redirect to another page)
-    loading.value = false
     router.push('/signin')
   } catch (err) {
     console.error('Registration error:', err)
