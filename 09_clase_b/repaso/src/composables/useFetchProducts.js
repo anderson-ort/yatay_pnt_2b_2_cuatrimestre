@@ -1,20 +1,22 @@
-import fetchProducts from '../services/products.js'
-import {ref} from 'vue'
+import productService from '../services/products.js'
+import { ref } from 'vue'
 
-const useFetchProducts = () =>{
-    const data  = ref([])
+const useFetchProducts = () => {
+    const data = ref([])
     const loading = ref(false)
     const error = ref(null)
 
     const retrieveProducts = async () => {
         loading.value = true
-        
-        try{
-            const response = await fetchProducts()
-            data.value = await response.data
+
+        try {
+            data.value = await productService.fetchProducts()
         }
-        catch(e){
+        catch (e) {
             error.value = e.message
+        }
+        finally {
+            loading.value = false
         }
     }
 
@@ -25,8 +27,8 @@ const useFetchProducts = () =>{
         loading,
         error,
         data,
-        retrieveProducts        
+        retrieveProducts
     }
-} 
+}
 
 export default useFetchProducts

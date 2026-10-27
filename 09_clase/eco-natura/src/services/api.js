@@ -1,6 +1,7 @@
 // necesito llevarlo a una api rest
 import config from '../config/index.js';
-import axios from 'axios';import mockData from '../data/productos.mock.json';
+import axios from 'axios';
+import mockData from '../data/productos.mock.json';
 
 // const urlProducts = `${config.supabaseUrl}/rest/v1/productos?select=*&order=creado_en.desc`
 

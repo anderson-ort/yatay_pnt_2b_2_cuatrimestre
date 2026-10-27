@@ -29,7 +29,7 @@ const logoutUser = async () => {
   </div>
   <nav class="nav">
     <RouterLink to="/">Catalogo</RouterLink>
-    <RouterLink to="/admin">Admin</RouterLink>
+    <RouterLink to="/admin" v-if="auth.isAdmin">Admin</RouterLink>
     <RouterLink to="/signin" v-if="!auth.isAuthenticated">Sign In</RouterLink>
     <RouterLink to="/signup" v-if="!auth.isAuthenticated">Sign Up</RouterLink>
   </nav>

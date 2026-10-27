@@ -1,27 +1,27 @@
 <script setup>
 import useFetchProducts from '../composables/useFetchProducts';
+import ProductCard from '../components/ProductCard.vue';
+import { onMounted } from 'vue';
 
 const { data, loading, error, retrieveProducts } = useFetchProducts()
 
 const handleRetriever = async () => {
-  console.log("recargando data");
-  
   retrieveProducts()
 }
+
+
+onMounted(()=>retrieveProducts())
 
 </script>
 
 <template>
   <div>
     <h1>Catalogo View</h1>
-    <button @click="handleRetriever">Reload</button>
   </div>
   <div v-if="error">{{ error }}</div>
   <div v-if="loading"> Cargando los productos </div>
 
-  <div v-if="data">
-    <div v-for="p in data">
-      <p>{{ p.nombre }}</p>
-    </div>
+  <div v-if="data" class="grid">
+      <ProductCard v-for="item in data" :key="item.id" :product="item" />
   </div>
 </template>

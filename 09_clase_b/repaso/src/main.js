@@ -8,6 +8,6 @@ import './style.css'
 
 
 createApp(App)
+    .use(pinia) // Pinia antes que el router: el guard del router usa el store
     .use(router)
-    .use(pinia)
     .mount('#app')
