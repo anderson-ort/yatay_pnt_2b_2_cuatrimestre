@@ -6,10 +6,10 @@ Last updated: 2026-10-27
 
 ## Sources scanned
 
-- /home/ander/.config/opencode/skills
-- /home/ander/.gemini/skills
-- /home/ander/.gemini/antigravity-cli/skills
-- /home/ander/.copilot/skills
+- /home/xit/.config/opencode/skills
+- /home/xit/.config/kilo/skills
+- /home/xit/.claude/skills
+- /home/xit/.gemini/skills
 
 ## Contract
 
@@ -21,20 +21,30 @@ Last updated: 2026-10-27
 
 | Skill | Trigger / description | Scope | Path |
 | --- | --- | --- | --- |
-| `branch-pr` | Create Gentle AI pull requests with issue-first checks. Trigger: creating, opening, or preparing PRs for review. | user | `/home/ander/.config/opencode/skills/branch-pr/SKILL.md` |
-| `chained-pr` | Trigger: PRs over 400 lines, stacked PRs, review slices. Split oversized changes into chained PRs that protect review focus. | user | `/home/ander/.config/opencode/skills/chained-pr/SKILL.md` |
-| `cognitive-doc-design` | Design docs that reduce cognitive load. Trigger: writing guides, READMEs, RFCs, onboarding, architecture, or review-facing docs. | user | `/home/ander/.config/opencode/skills/cognitive-doc-design/SKILL.md` |
-| `comment-writer` | Write warm, direct collaboration comments. Trigger: PR feedback, issue replies, reviews, Slack messages, or GitHub comments. | user | `/home/ander/.config/opencode/skills/comment-writer/SKILL.md` |
-| `gentle-ai-bench` | Trigger: bench, journey, journeys, driven mode, gentle-ai-bench, journey corpus, j-numbers, bench axis. Author and verify gentle-ai bench journeys; go test ./bench never proves driven execution. | user | `/home/ander/.config/opencode/skills/gentle-ai-bench/SKILL.md` |
-| `go-testing` | Trigger: Go tests, go test coverage, Bubbletea teatest, golden files. Apply focused Go testing patterns. | user | `/home/ander/.config/opencode/skills/go-testing/SKILL.md` |
-| `issue-creation` | Trigger: issue creation, bug reports, feature requests, or issue approval. Create and triage GitHub issues from repository evidence. | user | `/home/ander/.config/opencode/skills/issue-creation/SKILL.md` |
-| `judgment-day` | Trigger: judgment day, dual review, adversarial review, juzgar. Run explicit blind dual review with at most two scoped fix/re-judgment rounds. | user | `/home/ander/.config/opencode/skills/judgment-day/SKILL.md` |
-| `karpathy-guidelines` | Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, and define verifiable success criteria. These guidelines help agents work with OPENCODE.md or similar coding standards. | user | `/home/ander/.config/opencode/skills/karpathy-guidelines/SKILL.md` |
-| `rdd-defect-workflow` | Trigger: RDD, receipt-driven development, review authority, receipt/lineage, correction/recovery, delivery gate/kill switch, bounded review defects. Guide work. | user | `/home/ander/.config/opencode/skills/rdd-defect-workflow/SKILL.md` |
-| `skill-creator` | Trigger: new skills, agent instructions, documenting AI usage patterns. Create LLM-first skills with valid frontmatter. | user | `/home/ander/.config/opencode/skills/skill-creator/SKILL.md` |
-| `skill-improver` | Trigger: improve skills, audit skills, refactor skills, skill quality. Audit and upgrade existing LLM-first skills. | user | `/home/ander/.config/opencode/skills/skill-improver/SKILL.md` |
-| `systemic-issue-triage` | Trigger: new issue, bug report, triage, backlog, issue flood, community report, root cause, dead-end, blocked user. Attack issues by root class, never one-by-one; fixes must shrink the system, not grow it. | user | `/home/ander/.config/opencode/skills/systemic-issue-triage/SKILL.md` |
-| `work-unit-commits` | Plan commits as reviewable work units. Trigger: implementation, commit splitting, chained PRs, or keeping tests and docs with code. | user | `/home/ander/.config/opencode/skills/work-unit-commits/SKILL.md` |
+| `backlog` | Turns a software idea or a discussed feature into a backlog of short, vertical user stories. No acceptance criteria or implementation; that's /story's job. | user | `/home/xit/.claude/skills/backlog/SKILL.md` |
+| `branch-pr` | Create Gentle AI pull requests with issue-first checks. Trigger: creating, opening, or preparing PRs for review. | user | `/home/xit/.config/opencode/skills/branch-pr/SKILL.md` |
+| `chained-pr` | Trigger: PRs over 400 lines, stacked PRs, review slices. Split oversized changes into chained PRs that protect review focus. | user | `/home/xit/.config/opencode/skills/chained-pr/SKILL.md` |
+| `cognitive-doc-design` | Design docs that reduce cognitive load. Trigger: writing guides, READMEs, RFCs, onboarding, architecture, or review-facing docs. | user | `/home/xit/.config/opencode/skills/cognitive-doc-design/SKILL.md` |
+| `comment-writer` | Write warm, direct collaboration comments. Trigger: PR feedback, issue replies, reviews, Slack messages, or GitHub comments. | user | `/home/xit/.config/opencode/skills/comment-writer/SKILL.md` |
+| `easy-commit` | Orquestador que usa git-commit-caveman para hacer el commit real adaptado a Gitflow | user | `/home/xit/.config/opencode/skills/easy-commit/SKILL.md` |
+| `gentle-ai-bench` | Trigger: bench, journey, journeys, driven mode, gentle-ai-bench, journey corpus, j-numbers, bench axis. Author and verify gentle-ai bench journeys; go test ./bench never proves driven execution. | user | `/home/xit/.config/opencode/skills/gentle-ai-bench/SKILL.md` |
+| `go-testing` | Trigger: Go tests, go test coverage, Bubbletea teatest, golden files. Apply focused Go testing patterns. | user | `/home/xit/.config/opencode/skills/go-testing/SKILL.md` |
+| `graphify` | any input (code, docs, papers, images) - knowledge graph - clustered communities - HTML + JSON + audit report | user | `/home/xit/.claude/skills/graphify/SKILL.md` |
+| `issue-creation` | Trigger: issue creation, bug reports, feature requests, or issue approval. Create and triage GitHub issues from repository evidence. | user | `/home/xit/.config/opencode/skills/issue-creation/SKILL.md` |
+| `judgment-day` | Trigger: judgment day, dual review, adversarial review, juzgar. Run explicit blind dual review with at most two scoped fix/re-judgment rounds. | user | `/home/xit/.config/opencode/skills/judgment-day/SKILL.md` |
+| `karpathy-rules` | Behavioral rules for coding and reviewing code, derived from Karpathy's observations on LLM coding pitfalls. Apply to any code analysis or change. | user | `/home/xit/.claude/skills/karpathy-rules/SKILL.md` |
+| `pair` | Pair programming with the AI on an already refined story. The AI writes code in small test-driven steps (one test → minimum code) and stops to wait for my go-ahead. Never commits. | user | `/home/xit/.claude/skills/pair/SKILL.md` |
+| `python-best-practices` | Pragmatic Python without over-engineering. Apply when writing new Python code, refactoring existing code, designing module or project structure, or requesting Python code review. | user | `/home/xit/.config/kilo/skills/python-best-practices/SKILL.md` |
+| `python-config-secrets` | Configuration and secrets handling for Python: TOML for config, .env read via pydantic-settings for secrets. Use when reviewing or writing settings code. | user | `/home/xit/.claude/skills/python-config-secrets/SKILL.md` |
+| `python-project-structure` | Required Python project layout when a project involves more than 2 modules (src/, __init__.py, main.py). Use when designing or reviewing project structure. | user | `/home/xit/.claude/skills/python-project-structure/SKILL.md` |
+| `rdd-defect-workflow` | Trigger: RDD, receipt-driven development, review authority, receipt/lineage, correction/recovery, delivery gate/kill switch, bounded review defects. Guide work. | user | `/home/xit/.config/opencode/skills/rdd-defect-workflow/SKILL.md` |
+| `skill-creator` | Trigger: new skills, agent instructions, documenting AI usage patterns. Create LLM-first skills with valid frontmatter. | user | `/home/xit/.config/opencode/skills/skill-creator/SKILL.md` |
+| `skill-improver` | Trigger: improve skills, audit skills, refactor skills, skill quality. Audit and upgrade existing LLM-first skills. | user | `/home/xit/.config/opencode/skills/skill-improver/SKILL.md` |
+| `story` | Takes ONE user story from the backlog, adds 2-3 acceptance criteria and proposes a mini implementation plan for approval. Writes no code; implementation is /pair's job. | user | `/home/xit/.claude/skills/story/SKILL.md` |
+| `systemic-issue-triage` | Trigger: new issue, bug report, triage, backlog, issue flood, community report, root cause, dead-end, blocked user. Attack issues by root class, never one-by-one; fixes must shrink the system, not grow it. | user | `/home/xit/.config/opencode/skills/systemic-issue-triage/SKILL.md` |
+| `ui-ux-pro` | UI/UX design intelligence expert for web and mobile applications. Use when designing interfaces, selecting color palettes, typography, visual styles, building landing pages, dashboards, or reviewing code for UX issues. Covers 50+ design styles, 97 color palettes, 57 font pairings, 99 UX guidelines, 25 chart types across 9 tech stacks (React, Next.js, Vue, Svelte, SwiftUI, React Native, Flutter, Tailwind, shadcn/ui). | user | `/home/xit/.config/kilo/skills/ui-ux-pro/SKILL.md` |
+| `work-unit-commits` | Plan commits as reviewable work units. Trigger: implementation, commit splitting, chained PRs, or keeping tests and docs with code. | user | `/home/xit/.config/opencode/skills/work-unit-commits/SKILL.md` |
+| `yagni` | YAGNI (You Aren't Gonna Need It). Write only the minimum code that satisfies current, committed requirements. Use when writing, implementing, or reviewing code for speculative features, abstractions, or configuration. | user | `/home/xit/.claude/skills/yagni/SKILL.md` |
 
 ## Loading protocol
 

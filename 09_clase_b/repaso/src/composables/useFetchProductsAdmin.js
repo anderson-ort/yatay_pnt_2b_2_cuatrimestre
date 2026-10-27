@@ -14,8 +14,8 @@ const useProductAdmin = (service = productService) => {
     try {
       await actionCallback();
       return true;
-    } catch (error) {
-      error.value = extraerMsg(error);
+    } catch (err) {
+      error.value = extraerMsg(err);
       return false;
     } finally {
       loading.value = false;
@@ -32,4 +32,28 @@ const useProductAdmin = (service = productService) => {
     if (ok) await loadProducts();
     return ok;
   };
+
+  const editProduct = async (productId, product) => {
+    const ok = await execute(() => service.editProduct(productId, product));
+    if (ok) await loadProducts();
+    return ok;
+  };
+
+  const deleteProduct = async (productId) => {
+    const ok = await execute(() => service.deleteProduct(productId));
+    if (ok) await loadProducts();
+    return ok;
+  };
+
+  return {
+    products,
+    loading,
+    error,
+    loadProducts,
+    createProduct,
+    editProduct,
+    deleteProduct,
+  };
 };
+
+export default useProductAdmin;

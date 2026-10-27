@@ -1,12 +1,10 @@
 <script setup>
-import useAuthStore from '../stores/authStore';
-
-
-const auth = useAuthStore()
-
 const props = defineProps({
-  product: { type: Object, required: true }
+  product: { type: Object, required: true },
+  editable: { type: Boolean, default: false }
 });
+
+const emit = defineEmits(['edit', 'delete']);
 
 // Fallback si la imagen de Unsplash no existe
 const onImgError = (e) => {
@@ -18,9 +16,9 @@ const onImgError = (e) => {
   <div class="card">
     <img :src="product.imagen" :alt="product.nombre" @error="onImgError" />
     <h3>{{ product.nombre }}</h3>
-    <span v-if="auth.isAdmin">
-      <button > Edit </button>
-      <button > Delete </button>
+    <span v-if="editable">
+      <button @click="emit('edit', product)"> Edit </button>
+      <button @click="emit('delete', product)"> Delete </button>
     </span>
     <p class="categoria">{{ product.categoria }}</p>
     <p>${{ product.precio.toLocaleString() }}</p>
