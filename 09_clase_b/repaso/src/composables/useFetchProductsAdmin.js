@@ -9,8 +9,10 @@ const useProductAdmin = (service = productService) => {
   const error = ref(null);
 
   const execute = async (actionCallback) => {
+
     loading.value = true;
     error.value = null;
+
     try {
       await actionCallback();
       return true;
@@ -26,6 +28,7 @@ const useProductAdmin = (service = productService) => {
     execute(async () => {
       products.value = await service.fetchProducts();
     });
+
 
   const createProduct = async (product) => {
     const ok = await execute(() => service.createProduct(product));

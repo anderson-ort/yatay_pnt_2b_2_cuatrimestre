@@ -17,8 +17,9 @@ El proyecto debe construirse utilizando **Vue 3 (Composition API)** y cumplir es
 * **Enrutamiento:** Implementación de navegación utilizando **Vue Router**.
 * **Gestión del Estado:** Uso de **Pinia** para cualquier dato que deba compartirse entre más de dos niveles de componentes, erradicando el *prop drilling*.
 * **Autenticación y Roles:** Sistema de login donde los usuarios tengan distintos perfiles (ej. Cliente/Administrador), restringiendo el acceso a ciertas vistas según el rol.
-* **Gestión de Datos (ABM):** Al menos un (1) y hasta un máximo de tres (3) ABMs (Altas, Bajas y Modificaciones) funcionales. Deben consumir una REST API (puede ser MockAPI o una API desarrollada en otra materia).
-* **Dashboard y Gráficos:** Una vista de informes o estadísticas basada en los datos ingresados al sistema, accesible **únicamente** para usuarios administradores.
+* **Gestión de Datos (ABM):** Al menos un (1) y hasta un máximo de tres (3) ABMs (Altas, Bajas y Modificaciones) funcionales. Deben consumir una REST API (Pueden usar alguna herramienta del tipo BaaS | Backend propio -> Materia: Taller de programacion 2).
+* **(Optional )Dashboard y Gráficos:** Una vista de informes o estadísticas basada en los datos ingresados al sistema, accesible **únicamente** para usuarios administradores.
+* **Implementacion de plugin de PWA por Vite**: Integración de componente para ejecutar como una app mobile.
 * **(Optional) Inteligencia Artificial:** Integración de al menos una funcionalidad relacionada o impulsada por IA (ej. autocompletado inteligente, análisis de texto, chat, etc.).
 
 ## 3. Estándares de Entrega y Calidad

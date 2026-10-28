@@ -2,6 +2,7 @@ import api from "./api.js";
 
 const API_ENDPOINT = "/rest/v1/productos"
 
+
 const normalize = (product) => ({
     nombre: String(product.nombre ?? "").trim(),
     descripcion: product.descripcion?.trim() || null,
@@ -17,7 +18,6 @@ const validate = (product) => {
     return errors
 }
 
-
 const prepareProduct = (product) => {
     const normData = normalize(product)
     const errors = validate(normData)
@@ -32,11 +32,11 @@ const HEADER_ROWS = { Prefer: "return=representation" }
 const productService = {
 
     async fetchProducts() {
-        const { data } = await api.get(API_ENDPOINT, {
-            params: { select: "id,nombre,descripcion,categoria,imagen,precio", order: "nombre.asc" }
-            // params: { select: "*", order: "nombre.asc" }
-
-        })
+        // api -> donde va a a tener su documentacion de como consume la data.
+        const { data } = await api.get(
+            API_ENDPOINT, 
+            {params: { select: "id,nombre,descripcion,categoria,imagen,precio", order: "nombre.asc" }}
+        )
         return data
     },
     async createProduct(product) {
